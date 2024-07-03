@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://2q666iw8exro"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnyh4"]
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ou2t"]
+material = SubResource("StandardMaterial3D_lnyh4")
+size = Vector3(4, 0.1, 4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_75nd3"]
+points = PackedVector3Array(-2, -0.05, -2, -2, 0.05, -2, 2, -0.05, -2, -2, -0.05, 2, -2, 0.05, 2, 2, 0.05, -2, 2, -0.05, 2, 2, 0.05, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_igomb"]
+albedo_color = Color(0.5348, 0.488, 0.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_co8so"]
+material = SubResource("StandardMaterial3D_igomb")
+size = Vector3(4, 0.1, 4)
+
+[node name="SpaceLibrary" type="Node3D"]
+
+[node name="FreeSpace" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6ou2t")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FreeSpace"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FreeSpace/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_75nd3")
+
+[node name="TurretBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.99971, 0, 0)
+mesh = SubResource("BoxMesh_co8so")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TurretBase"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretBase/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_75nd3")
