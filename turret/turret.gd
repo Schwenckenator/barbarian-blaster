@@ -3,8 +3,9 @@ extends Node3D
 @export var projectile: PackedScene
 @export var turret_range:= 10.0
 
-@onready var barrel: Node3D = $TurretBase/TurretTop/TurretBarrel
-@onready var turret_top: Node3D = $TurretBase/TurretTop
+@onready var barrel: Node3D = $TurretBase/TurretPivot/TurretTop/TurretBarrel
+@onready var turret_pivot: Node3D = $TurretBase/TurretPivot
+@onready var animation_player := $AnimationPlayer
 
 var enemy_path: Path3D
 var target: PathFollow3D
@@ -12,7 +13,7 @@ var target: PathFollow3D
 func _physics_process(_delta: float) -> void:
 	target = find_best_target()
 	if target:
-		turret_top.look_at(target.global_position, Vector3.UP, true)
+		turret_pivot.look_at(target.global_position + Vector3.UP, Vector3.UP, true)
 
 func _on_timer_timeout() -> void:
 	if !target:
@@ -21,10 +22,11 @@ func _on_timer_timeout() -> void:
 	var shot: Node3D = projectile.instantiate()
 	add_child(shot)
 	shot.global_position = barrel.global_position
-	shot.direction = turret_top.global_basis.z
+	shot.direction = turret_pivot.global_basis.z
 
 	# Prevent projectiles from dropping down
 	shot.direction.y = 0
+	animation_player.play("recoil")
 
 func find_best_target() -> PathFollow3D:
 	var best_target: PathFollow3D = null

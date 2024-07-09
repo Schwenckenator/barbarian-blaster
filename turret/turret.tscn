@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvfumbcoulp8m"]
+[gd_scene load_steps=9 format=3 uid="uid://cvfumbcoulp8m"]
 
 [ext_resource type="Script" path="res://turret/turret.gd" id="1_rwuch"]
 [ext_resource type="PackedScene" uid="uid://ciy3ck8i3i7ah" path="res://turret/projectile.tscn" id="2_50aay"]
@@ -16,6 +16,67 @@ top_radius = 0.2
 bottom_radius = 0.2
 height = 0.5
 
+[sub_resource type="Animation" id="Animation_fn8fw"]
+resource_name = "recoil"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretPivot/TurretTop:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.7, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.6), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurretBase/TurretPivot/TurretTop:rotation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-0.436, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1bh6l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretPivot/TurretTop:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurretBase/TurretPivot/TurretTop:rotation:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m3854"]
+_data = {
+"RESET": SubResource("Animation_1bh6l"),
+"recoil": SubResource("Animation_fn8fw")
+}
+
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_rwuch")
 projectile = ExtResource("2_50aay")
@@ -24,16 +85,24 @@ projectile = ExtResource("2_50aay")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_h6n14")
 
-[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_ahvwi")
+[node name="TurretPivot" type="Node3D" parent="TurretBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
-[node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretTop"]
+[node name="TurretTop" type="MeshInstance3D" parent="TurretBase/TurretPivot"]
+mesh = SubResource("CylinderMesh_ahvwi")
+skeleton = NodePath("../..")
+
+[node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretPivot/TurretTop"]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 0.8)
 mesh = SubResource("CylinderMesh_rxf0q")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m3854")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

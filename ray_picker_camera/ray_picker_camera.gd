@@ -2,8 +2,10 @@ extends Camera3D
 
 @export var grid_map: GridMap
 @export var turret_manager: TurretManager
+@export var turret_cost := 100
 
 @onready var raycast: RayCast3D= $RayCast3D
+@onready var bank = get_tree().get_first_node_in_group("bank")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,6 +22,9 @@ func _process(_delta: float) -> void:
 	# Guards
 	if not raycast.is_colliding():
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+		return
+
+	if bank.gold < turret_cost:
 		return
 
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
@@ -39,4 +44,5 @@ func _process(_delta: float) -> void:
 		grid_map.set_cell_item(cell, 1)
 		var tile_pos = grid_map.map_to_local(cell)
 		turret_manager.build_turret(tile_pos)
+		bank.gold -= turret_cost
 	
