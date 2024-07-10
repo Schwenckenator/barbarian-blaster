@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bph8ipf2mq3f6"]
+
+[ext_resource type="Script" path="res://manager/difficulty_manager.gd" id="1_gfcql"]
+
+[sub_resource type="Curve" id="Curve_qje45"]
+min_value = 0.25
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 1, Vector2(0.195219, 2), 0.0, -8.57967, 1, 1, Vector2(0.25498, 1.48727), -8.57967, -0.113488, 1, 1, Vector2(0.422311, 1.46828), -0.113488, -18.5363, 1, 1, Vector2(0.458167, 0.803631), -18.5363, 0.0, 1, 1, Vector2(0.669323, 0.803631), 0.0, -1.67423, 1, 1, Vector2(1, 0.25), -1.90148, 0.0, 1, 0]
+point_count = 7
+
+[sub_resource type="Curve" id="Curve_4wln4"]
+min_value = 10.0
+max_value = 150.0
+_data = [Vector2(0, 10), 0.0, 140.0, 0, 1, Vector2(1, 150), 140.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="DifficultyManager" type="Node"]
+script = ExtResource("1_gfcql")
+spawn_time_curve = SubResource("Curve_qje45")
+enemy_health_curve = SubResource("Curve_4wln4")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

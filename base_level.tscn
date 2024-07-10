@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5v8a8stohvh2"]
+[gd_scene load_steps=16 format=3 uid="uid://c5v8a8stohvh2"]
 
 [ext_resource type="MeshLibrary" uid="uid://cml6sy6fjhcrt" path="res://mesh_libraries/space_library.tres" id="1_8crp3"]
 [ext_resource type="PackedScene" uid="uid://dpblj14crqtqq" path="res://ray_picker_camera/ray_picker_camera.tscn" id="2_y4f2l"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://turret/turret_manager.gd" id="5_qi6ju"]
 [ext_resource type="PackedScene" uid="uid://cvfumbcoulp8m" path="res://turret/turret.tscn" id="6_vhn16"]
 [ext_resource type="Script" path="res://bank.gd" id="8_5esky"]
+[ext_resource type="PackedScene" uid="uid://bph8ipf2mq3f6" path="res://manager/difficulty_manager.tscn" id="9_htfo6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qmnbx"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -63,10 +64,11 @@ data = {
 grid_map = NodePath("../GridMap")
 turret_manager = NodePath("../TurretManager")
 
-[node name="EnemyPath" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
 curve = SubResource("Curve3D_uxudx")
 script = ExtResource("3_ehyay")
 enemy_scene = ExtResource("2_ygpac")
+difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
@@ -113,6 +115,7 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_g8kvy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -10)
+max_health = 50
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_qi6ju")
@@ -140,4 +143,7 @@ size_flags_vertical = 8
 text = "Gold: xyz"
 label_settings = SubResource("LabelSettings_pfk35")
 
+[node name="DifficultyManager" parent="." instance=ExtResource("9_htfo6")]
+
 [connection signal="timeout" from="EnemyPath/SpawnTimer" to="EnemyPath" method="spawn_enemy"]
+[connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
