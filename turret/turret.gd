@@ -3,7 +3,6 @@ extends Node3D
 @export var projectile: PackedScene
 @export var turret_range:= 10.0
 
-@onready var barrel: Node3D = $TurretBase/TurretPivot/TurretTop/TurretBarrel
 @onready var turret_pivot: Node3D = $TurretBase/TurretPivot
 @onready var animation_player := $AnimationPlayer
 
@@ -21,7 +20,7 @@ func _on_timer_timeout() -> void:
 
 	var shot: Node3D = projectile.instantiate()
 	add_child(shot)
-	shot.global_position = barrel.global_position
+	shot.global_position = turret_pivot.global_position
 	shot.direction = turret_pivot.global_basis.z
 
 	# Prevent projectiles from dropping down

@@ -1,20 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvfumbcoulp8m"]
+[gd_scene load_steps=8 format=3 uid="uid://cvfumbcoulp8m"]
 
 [ext_resource type="Script" path="res://turret/turret.gd" id="1_rwuch"]
 [ext_resource type="PackedScene" uid="uid://ciy3ck8i3i7ah" path="res://turret/projectile.tscn" id="2_50aay"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_h6n14"]
-height = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_ahvwi"]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 0.6
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_rxf0q"]
-top_radius = 0.2
-bottom_radius = 0.2
-height = 0.5
+[ext_resource type="PackedScene" uid="uid://xk0vvvc4hg7n" path="res://assets/TurretBase.glb" id="3_jsov3"]
+[ext_resource type="PackedScene" uid="uid://cx0jq3jswjt5k" path="res://assets/Cannon.glb" id="4_7n86c"]
 
 [sub_resource type="Animation" id="Animation_1bh6l"]
 length = 0.001
@@ -81,21 +70,19 @@ _data = {
 script = ExtResource("1_rwuch")
 projectile = ExtResource("2_50aay")
 
-[node name="TurretBase" type="MeshInstance3D" parent="."]
+[node name="TurretBase" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_h6n14")
 
 [node name="TurretPivot" type="Node3D" parent="TurretBase"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
-[node name="TurretTop" type="MeshInstance3D" parent="TurretBase/TurretPivot"]
-mesh = SubResource("CylinderMesh_ahvwi")
-skeleton = NodePath("../..")
+[node name="TurretTop" type="Node3D" parent="TurretBase/TurretPivot"]
 
-[node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretPivot/TurretTop"]
-transform = Transform3D(1, 0, 0, 0, -2.98023e-08, -1, 0, 1, -2.98023e-08, 0, 0, 0.8)
-mesh = SubResource("CylinderMesh_rxf0q")
-skeleton = NodePath("../../..")
+[node name="Cannon" parent="TurretBase/TurretPivot/TurretTop" instance=ExtResource("4_7n86c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="TurretBase" parent="TurretBase" instance=ExtResource("3_jsov3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

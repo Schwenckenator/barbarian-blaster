@@ -1,20 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://c5jwrsqqcrpgr"]
 
 [ext_resource type="Script" path="res://base/base.gd" id="1_w0q8t"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1hwv"]
-albedo_color = Color(0.8, 0.16, 0.16, 1)
+[ext_resource type="PackedScene" uid="uid://d3fa85iwavlai" path="res://assets/Base.glb" id="2_m7hih"]
 
 [node name="Base" type="Node3D" groups=["base"]]
 script = ExtResource("1_w0q8t")
 max_health = 25
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-radius = 2.0
-height = 4.0
-sides = 32
-material = SubResource("StandardMaterial3D_i1hwv")
+[node name="Base" parent="." instance=ExtResource("2_m7hih")]
 
 [node name="HealthLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.97683, 0)
