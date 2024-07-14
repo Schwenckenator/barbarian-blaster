@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5jwrsqqcrpgr"]
+[gd_scene load_steps=4 format=3 uid="uid://c5jwrsqqcrpgr"]
 
 [ext_resource type="Script" path="res://base/base.gd" id="1_w0q8t"]
 [ext_resource type="PackedScene" uid="uid://d3fa85iwavlai" path="res://assets/Base.glb" id="2_m7hih"]
+[ext_resource type="FontFile" uid="uid://crpnmst4ua334" path="res://assets/Asap/static/Asap-Bold.ttf" id="3_i3pfl"]
 
 [node name="Base" type="Node3D" groups=["base"]]
 script = ExtResource("1_w0q8t")
@@ -10,8 +11,9 @@ max_health = 25
 [node name="Base" parent="." instance=ExtResource("2_m7hih")]
 
 [node name="HealthLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.97683, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.97683, 0)
 billboard = 1
 text = "This is some text"
+font = ExtResource("3_i3pfl")
 font_size = 500
 outline_size = 100

@@ -9,6 +9,7 @@ signal stop_spawning_enemies
 @onready var timer: Timer = $Timer
 
 func _ready() -> void:
+	Engine.time_scale = 1
 	timer.start(game_length)
 	pass
 
