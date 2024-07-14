@@ -143,26 +143,26 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 
 [node name="Skeleton3D" parent="Barbarian/Armature" index="0"]
-bones/0/position = Vector3(1.66463e-09, -0.0240132, 0.391841)
-bones/0/rotation = Quaternion(0.126129, 1.20116e-07, -1.04035e-08, 0.992014)
-bones/1/rotation = Quaternion(-0.0871273, 0.00202048, -0.000300399, 0.996195)
-bones/2/rotation = Quaternion(-0.0413496, 0.136599, -0.595928, 0.790254)
-bones/3/rotation = Quaternion(0.11915, 0.126744, -0.563753, 0.807417)
-bones/4/rotation = Quaternion(0.526372, -0.069468, -0.0399964, 0.846467)
-bones/6/rotation = Quaternion(0.0697789, 0.000445432, 0.0014458, 0.997561)
-bones/7/rotation = Quaternion(-0.0476084, -0.144742, 0.594927, 0.789205)
-bones/8/rotation = Quaternion(0.0895178, -0.202612, 0.550682, 0.804789)
-bones/9/rotation = Quaternion(0.488389, 0.0915105, 0.268016, 0.825391)
-bones/10/position = Vector3(1.61328e-09, -0.0240132, 0.391841)
-bones/10/rotation = Quaternion(0.585068, 0.335226, 0.616973, -0.405788)
-bones/11/rotation = Quaternion(-0.437, -0.0521994, -0.0827233, 0.894127)
-bones/12/rotation = Quaternion(-0.11288, 0.0421474, 0.366968, 0.922397)
-bones/13/rotation = Quaternion(0.0239329, 0.0146883, -0.670807, 0.7411)
-bones/14/position = Vector3(-3.38799e-09, -0.0240132, 0.391841)
-bones/14/rotation = Quaternion(-0.622162, 0.258575, 0.663899, 0.324486)
-bones/15/rotation = Quaternion(-0.334508, 0.323778, 0.514141, 0.720369)
-bones/16/rotation = Quaternion(-0.011464, -0.0689086, -0.696251, 0.714391)
-bones/17/rotation = Quaternion(-0.0250835, 0.00830065, 0.691214, 0.722167)
+bones/0/position = Vector3(2.6239e-08, -0.36832, 0.391841)
+bones/0/rotation = Quaternion(0.126051, 0.0349798, -0.00444748, 0.991397)
+bones/1/rotation = Quaternion(-0.0868002, 0.0856598, -0.0127341, 0.992455)
+bones/2/rotation = Quaternion(-0.0921341, 0.202414, -0.585923, 0.779253)
+bones/3/rotation = Quaternion(-0.0167499, 0.452044, -0.47699, 0.753563)
+bones/4/rotation = Quaternion(0.54643, -0.224529, -0.155659, 0.791689)
+bones/6/rotation = Quaternion(0.0454794, -0.0936307, -0.0028987, 0.994563)
+bones/7/rotation = Quaternion(-0.00165784, -0.0847509, 0.600771, 0.794914)
+bones/8/rotation = Quaternion(0.246804, 0.240503, 0.57223, 0.744176)
+bones/9/rotation = Quaternion(0.518449, -0.117304, 0.274677, 0.801251)
+bones/10/position = Vector3(6.12674e-08, -0.36832, 0.391841)
+bones/10/rotation = Quaternion(0.628403, 0.246098, 0.669799, -0.309701)
+bones/11/rotation = Quaternion(-0.391311, -0.185854, -0.289272, 0.853613)
+bones/12/rotation = Quaternion(-0.039418, 0.0085058, 0.0591055, 0.997437)
+bones/13/rotation = Quaternion(-0.0195444, -0.0177743, -0.738541, 0.673691)
+bones/14/position = Vector3(4.20686e-08, -0.36832, 0.391841)
+bones/14/rotation = Quaternion(-0.571011, 0.359534, 0.599997, 0.42975)
+bones/15/rotation = Quaternion(-0.526202, -0.0558455, -0.0486993, 0.847125)
+bones/16/rotation = Quaternion(-0.114951, 0.0154741, -0.656129, 0.745682)
+bones/17/rotation = Quaternion(-0.0109954, 0.0433622, 0.635123, 0.771115)
 
 [node name="Highlight" type="MeshInstance3D" parent="Barbarian/Armature/Skeleton3D/Barbarian_M_02" index="0"]
 visible = false
@@ -170,5 +170,8 @@ material_override = SubResource("StandardMaterial3D_cec6x")
 mesh = SubResource("ArrayMesh_alayo")
 skin = SubResource("Skin_hbuex")
 skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" parent="Barbarian" index="1"]
+autoplay = "Run"
 
 [editable path="Barbarian"]
